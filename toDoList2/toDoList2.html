@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="toDoList2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+</head>
+
+<body>
+   
+   <div class="container">
+    <h1>TO DO LİST</h1>
+    <form action="">
+        <input type="text" id="inputListeElemani" placeholder="Eklemek veya aramak istediğniz görevi giriniz.">
+        <button id="ekle"><i class="fa-solid fa-circle-plus"></i></button>
+        <button id="ara"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+        <input type="button" id="temizle" value="TEMİZLE">
+
+        <div class="gorevFiltreleme"> 
+            <select class="filter-todo">
+                <option value="all">Tümü</option>
+                <option value="completed">Tamamlananlar</option>
+                <option value="uncompleted">Tamamlanmayanlar</option>
+            </select>
+        </div>
+    </form>
+    <div class="eklenenGorevler">
+        <ul class="toDoList"></ul>
+    </div>
+   
+
+   </div>
+   <script src="toDoList2.js"></script>
+</body>
+
+</html>
