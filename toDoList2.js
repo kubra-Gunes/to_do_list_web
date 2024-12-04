@@ -8,7 +8,7 @@ let filterToDoList = document.querySelector('.filter-todo');// görevleri filtre
 // Sayfa yüklendiğinde mevcut görevlere buton ekle ve localStorage'teki görevleri yükle
 document.addEventListener('DOMContentLoaded', () => {
     mevcutGorevlereButonEkle();
-    loadTasks(); // Sayfa yüklendiğinde görevleri localStorage'ten yükle
+    loadTasks(); // Sayfa yüklendiğinde görevleri localStorage'ten yükleyen fonksiyonu çağır
 });
 
 // Butonlara olay ekleyiciler atıyoruz
@@ -25,11 +25,11 @@ function mevcutGorevlereButonEkle() {
         if (!gorev.querySelector('.check-btn')) {//eğer göreve buton eklemesi yapılmadıysa 
 
             let checkButton = document.createElement('i');// fontawesome ikonlarını göstermek için <i> öğesi oluşturuluyor
-            checkButton.classList.add('fa-solid', 'fa-check', 'check-btn');
+            checkButton.classList.add('fa-solid', 'fa-check', 'check-btn');//kullanacağım butona sınıflarını ekliyorum(çünkü fontawesome butonları sınıflarla çağrılıyor)
             checkButton.style.cursor = "pointer";//üzerine gelindiğinde fare imlecinin "işaretçi" olması sağlanır
 
             let deleteButton = document.createElement('i');// fontawesome ikonlarını göstermek için <i> öğesi oluşturuluyor
-            deleteButton.classList.add('fa-solid', 'fa-x', 'delete-btn');
+            deleteButton.classList.add('fa-solid', 'fa-x', 'delete-btn');//kullanacağım butona sınıflarını ekliyorum(çünkü fontawesome butonları sınıflarla çağrılıyor)
             deleteButton.style.cursor = "pointer";//üzerine gelindiğinde fare imlecinin "işaretçi" olması sağlanır
 
             gorev.prepend(checkButton); // Sol tarafa ekle
@@ -61,20 +61,11 @@ function gorevEkle(event) {
     gorev.classList.add('gorev-styling');//oluşturulan <li> öğesine gorev-styling adlı bir CSS sınıfı ekleniyor
     gorev.innerText = gorevText;//gorev öğesinin içine gorevText adlı bir değişkenin değeri ekleniyor
 
-    let checkButton = document.createElement('i');
-    checkButton.classList.add('fa-solid', 'fa-check', 'check-btn');
-    checkButton.style.cursor = "pointer";
-
-    let deleteButton = document.createElement('i');
-    deleteButton.classList.add('fa-solid', 'fa-x', 'delete-btn');
-    deleteButton.style.cursor = "pointer";
-
-    gorev.prepend(checkButton); 
-    gorev.append(deleteButton); 
-
     eklenenGorevlerList.appendChild(gorev);// oluşturduğum görevi (li) görev listemin(ul) elemanı yapıyorum
     gorevGirisi.value = "";// görev girişimi boşaltıyorum
 
+    mevcutGorevlereButonEkle();//ekldiğim görevlere check ve delete butonlarını ekleyen fonksiyonu çağırdım.
+    
     // Check butonuna tıklandığında görevi tamamlanmış olarak işaretle
     checkButton.addEventListener('click', () => {
         gorev.classList.toggle('completed');
@@ -136,34 +127,16 @@ function saveTasks() {
 
 // Sayfa yenilendiğinde localStorage'teki görevleri yükle
 function loadTasks() {
-    let storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];//LocalStorage'dan tasks anahtarına kaydedilmiş veriyi alır.
     storedTasks.forEach(task => {
         let gorev = document.createElement('li');
         gorev.classList.add('gorev-styling');
         if (task.completed) gorev.classList.add('completed');
         gorev.innerText = task.text;
-
-        let checkButton = document.createElement('i');
-        checkButton.classList.add('fa-solid', 'fa-check', 'check-btn');
-        checkButton.style.cursor = "pointer";
-
-        let deleteButton = document.createElement('i');
-        deleteButton.classList.add('fa-solid', 'fa-x', 'delete-btn');
-        deleteButton.style.cursor = "pointer";
-
-        gorev.prepend(checkButton); 
-        gorev.append(deleteButton); 
-
+        
         eklenenGorevlerList.appendChild(gorev);
 
-        checkButton.addEventListener('click', () => {
-            gorev.classList.toggle('completed');
-            saveTasks(); // Durum değiştiğinde görevleri kaydet
-        });
+        mevcutGorevlereButonEkle();
 
-        deleteButton.addEventListener('click', () => {
-            gorev.remove();
-            saveTasks(); // Görev silindiğinde kaydet
-        });
     });
 }
