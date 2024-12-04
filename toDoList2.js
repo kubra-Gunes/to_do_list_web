@@ -65,18 +65,7 @@ function gorevEkle(event) {
     gorevGirisi.value = "";// görev girişimi boşaltıyorum
 
     mevcutGorevlereButonEkle();//ekldiğim görevlere check ve delete butonlarını ekleyen fonksiyonu çağırdım.
-    
-    // Check butonuna tıklandığında görevi tamamlanmış olarak işaretle
-    checkButton.addEventListener('click', () => {
-        gorev.classList.toggle('completed');
-        saveTasks(); // Durum değiştiğinde görevleri kaydet
-    });
-
-    // Delete butonuna tıklandığında görevi sil
-    deleteButton.addEventListener('click', () => {
-        gorev.remove();
-        saveTasks(); // Görev silindiğinde kaydet
-    });
+   
 
     saveTasks(); // Yeni görev eklendiğinde görevleri kaydet
 }
